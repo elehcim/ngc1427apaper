@@ -63,21 +63,24 @@ if __name__ == '__main__':
     sb = create_fig_sb(snap, ax_sb, sb_range, band, width, resolution)
     # ax_sb.set_title(rf'$\mu_{{{band}}}$ - ({which_snap}) - {time:.2f} Gyr')
     print(f"{sim_label}s{which_snap}")
-    ax_sb.set_title(rf"$\mu_{{{band}}}$ - {sim_label}s{which_snap:03} - $\tau$={tbl_traj['t_period'][which_snap-1]:.4f}")
+    # ax_sb.set_title(rf"$\mu_{{{band}}}$ - {sim_label}s{which_snap:03} - $\tau$={tbl_traj['t_period'][which_snap-1]:.4f}")
 
     isophote_sb = 27
     ell = fit_contour(sb, isophote_sb, width, resolution)
     ep = ellipseparams2patch(ell, edgecolor='blue', linewidth=2)
     aperture_sb = ellipseparams2aperture(ell)
 
-    ellipse_smooth = (10, 10)
+    ellipse_smooth = None#(10, 10)
     ax_sb.add_patch(ep)
     fig_hi, ax_hi = plt.subplots()
-    hi_img = create_hi_image(snap, ax_hi, width, resolution, vmin=None, vmax=None, ellipse_smooth=ellipse_smooth)
+    hi_range = (1e18, None)
+    hi_img = create_hi_image(snap, ax_hi, width, resolution, vmin=hi_range[0], vmax=hi_range[1], ellipse_smooth=ellipse_smooth)
+    # ax_hi.set_title(r'$\Sigma_{HI}$')
 
     # if ii.show_beam:
-    beam = get_beam_patch(ellipse_smooth, width, resolution)
-    ax_sb.add_patch(copy.copy(beam))
+    if ellipse_smooth is not None:
+        beam = get_beam_patch(ellipse_smooth, width, resolution)
+        ax_sb.add_patch(copy.copy(beam))
 
     levels_hi = np.logspace(17, 21, 5)
 
