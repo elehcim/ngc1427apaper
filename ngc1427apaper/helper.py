@@ -380,7 +380,7 @@ def create_hi_image(snap, ax_hi, width, resolution, ellipse_smooth=None, vmin=1e
 
     return hi_img
 
-def create_hi_vel_image(snap, ax_velocity, hi_img, hi_v_range, min_sigma_hi_for_velocity_plot, rm, width, resolution, astronomical_convention=False):
+def create_hi_vel_image(snap, ax_velocity, hi_img, hi_v_range, min_sigma_hi_for_velocity_plot, width, resolution, astronomical_convention=False):
     sign = -1 if astronomical_convention else 1
 
     hi_v = sign * pynbody.plot.sph.image(snap.g, qty='vz', av_z='rho_HI',
@@ -399,9 +399,7 @@ def create_hi_vel_image(snap, ax_velocity, hi_img, hi_v_range, min_sigma_hi_for_
     ax_velocity.set_ylabel('y/kpc')
     # ax_velocity.set_title(r'HI velocity')
     ax_velocity.grid(ls=':')
-
-    ax_arrow2 = inset_axes(ax_velocity, **INSET_DIM, loc='lower right')
-    plot_rotated_axis(rm, ax_arrow2)
+    return _img_v
 
 
 def do_sb_contours(sb, levels_star, ax, width, colors='r'):

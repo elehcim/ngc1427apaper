@@ -121,5 +121,21 @@ if __name__ == '__main__':
     # ax_hi
     # hi_img = create_hi_image(snap, ax_hi, width, resolution, vmin=None, vmax=None, ellipse_smooth=ellipse_smooth)
 
+    fig_hi_vel, ax_hi_vel = plt.subplots()
+
+    min_sigma_hi_for_velocity_plot = 5e+18
+    hi_v_range = (None, None)
+    create_hi_vel_image(snap,
+        ax_hi_vel,
+        hi_img,
+        hi_v_range,
+        min_sigma_hi_for_velocity_plot,
+        width,
+        resolution,
+        astronomical_convention=True)
+
+    levels_star = np.linspace(22, 28, 4)
+    do_sb_contours(sb, levels_star, ax_hi_vel, width)
+
     plt.show()
     # st.write(fig_hi)
