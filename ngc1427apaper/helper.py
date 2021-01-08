@@ -347,7 +347,6 @@ def create_hi_image(snap, ax_hi, width, resolution, ellipse_smooth=None, vmin=1e
                                       width=width, resolution=resolution, noplot=True)
 
     extent = (-width/2, width/2, -width/2, width/2)
-    ax_hi.set_title(r'$\Sigma_{HI}$')
     if ellipse_smooth is not None:
         hi = pynbody.plot.sph.image(snap.g,
                                     qty='rho_HI', units='amu cm**-2',
@@ -364,7 +363,7 @@ def create_hi_image(snap, ax_hi, width, resolution, ellipse_smooth=None, vmin=1e
                             norm=LogNorm(vmin=vmin, vmax=vmax))
         cbar = ax_hi.figure.colorbar(_img)
         cbar.set_label(r'$\Sigma_{HI}$ (amu/cm$^2$)')
-
+        ax_hi.grid(ls=':')
         ax_hi.set_xlabel('x/kpc')
         ax_hi.set_ylabel('y/kpc')
 
@@ -375,7 +374,9 @@ def create_hi_image(snap, ax_hi, width, resolution, ellipse_smooth=None, vmin=1e
                                         cmap='gray',
                                         vmin=vmin, vmax=vmax,
                                         )
-    ax_hi.grid(ls=':')
+        cbar = ax_hi.images[-1].colorbar
+        cbar.set_label(r'$\Sigma_{HI}$ (amu/cm$^2$)')
+        ax_hi.grid(ls=':')
 
     return hi_img
 
@@ -396,7 +397,7 @@ def create_hi_vel_image(snap, ax_velocity, hi_img, hi_v_range, min_sigma_hi_for_
 
     ax_velocity.set_xlabel('x/kpc')
     ax_velocity.set_ylabel('y/kpc')
-    ax_velocity.set_title(r'HI velocity')
+    # ax_velocity.set_title(r'HI velocity')
     ax_velocity.grid(ls=':')
 
     ax_arrow2 = inset_axes(ax_velocity, **INSET_DIM, loc='lower right')
