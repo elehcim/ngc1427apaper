@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import copy
 import matplotlib.pyplot as plt
 from simulation.ellipse_fit import fit_contour, ellipseparams2patch

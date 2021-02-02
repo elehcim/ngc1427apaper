@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import matplotlib.pyplot as plt
 import pandas as pd
 from ngc1427apaper.helper import *

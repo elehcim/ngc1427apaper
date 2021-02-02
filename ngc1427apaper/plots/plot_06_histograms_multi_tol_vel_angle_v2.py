@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1 import ImageGrid
