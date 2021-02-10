@@ -129,6 +129,10 @@ if __name__ == '__main__':
     for i, ax in enumerate(grid.axes_row[0]):
         ax.set_title(fr'{isophote_target[i]} mag arcsec$^{{-2}}$')
 
+    for ax in grid.axes_row[0]:
+        ax.axhline(y=0.23, color='red', ls=':', linewidth=0.8)
+
+    # grid.axes_row[0][0].text((-0.24, 0.24), 'A=0.23')
 
     # Savefig
     file_stem = f"hist2d_tp_A_bins{bins}_kde"
