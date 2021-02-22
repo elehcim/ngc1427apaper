@@ -1,7 +1,10 @@
 #! /usr/bin/env python
 import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+import cycler
 import pandas as pd
-from ngc1427apaper.helper import *
+from ngc1427apaper.helper import savefig
 from simulation.simdata import get_tables, SIM_NAME_DICT, get_mach, get_traj, get_cii
 
 from simulation.data_handler import DataHandler
@@ -12,60 +15,45 @@ from pynbody.units import Unit
 # mach_columns = ['mach', 'temp_host', 'rho_host', 'v_host']
 
 if __name__ == '__main__':
-    sim_label = '69p200'
-    sim_name = SIM_NAME_DICT[sim_label]
-    tbl_dict = dict()
-    # for k,v in SIM_NAME_DICT.items():
-    # _t = get_tables(sim_name, True)[table_columns].to_pandas()
-    traj_columns = 't,x,y,z,vx,vy,vz,temp_host,rho_host,v_host'.split(',')
-    cii_columns = ['cii'] # erg s**-1
-    _t = get_traj(sim_name)[traj_columns].to_pandas()
-    # _m = get_mach(sim_name)[mach_columns].to_pandas()
-    _cii = get_cii(sim_name)[cii_columns].to_pandas()
-    # tbl_dict[k] = pd.concat([_t, _m, _cii], axis=1, sort=False)
-    df = pd.concat([_t, _cii], axis=1, sort=False)
-
-
-    # dh = DataHandler(cache_file='data_d_orbit_sideon_20210222.pkl')
-    # df = dh.data()['69p100']
-
-    # convert density
-    df['rho_host'] = df.rho_host * gadget_dens_units.in_units('amu cm**-3')
-
-
-    k_B = 1.380649e-23 # J/K
-    ## mean constituent mass
-    MU_C = 0.58 # amu   ## fully ionized
-
-    # (Unit('amu cm**-3 J K**-1 K amu**-1').in_units('Pa')) == 1e6
-    df['p_host'] = df.rho_host * k_B * df.temp_host / MU_C * (Unit('amu cm**-3 J K**-1 K amu**-1').in_units('Pa'))
-
-
-    # df['v'] = np.linalg.norm([df.vx, df.vy], axis=0)
-    df['r'] = np.linalg.norm([df.x, df.y, df.z], axis=0)
-
-    # Pa = N/m2 = kg m/s2 /m2 = kg / (s2 m)
-    df['RPS'] = df.v_host**2 * df.rho_host * (Unit('km**2 s**-2 amu cm**-3').in_units('Pa'))
+    n = 5
+    color = plt.cm.copper(np.linspace(0, 1,n))
+    matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
+    fig, ax = plt.subplots()
+    dh = DataHandler(cache_file='data_d_orbit_sideon_20210222.pkl')
+    dff = dh.data_big()
+    sim_name = 69002
+    dfq = dff.query(f'name == "{sim_name}" & pericenter!=100 & pericenter!=200')
+    groups = dfq.groupby('pericenter')
+    markers = ('+','*', '.')
+    for i, (peri, df) in enumerate(groups):
+        # if peri in [100, 200]: continue
+        # print(df.sim_label.iloc[0])
+        # peri = df.pericenter.iloc[0]
+        print(peri)
+        # ax.plot(x=df.r,y=df.RPS, marker='+')
+        # ax.plot(df.r, df.RPS, label=peri)
+        mappable = ax.scatter(df.t_period, df.RPS, c=df.r, label=peri, marker=markers[i], alpha=0.8)
+        if i==0:
+            good_mappable = mappable
+    ax.legend()
 
 #     dff = get_data('selected_with_multi_iso_and_morph_and_data.pkl')
 #     df = df.query('sim=="69p200" & rp==137 & vp==-693 & sign==1')
-    fig, ax = plt.subplots()
 
     # ax.scatter(df_ok.x, df_ok.y, color='b', marker='.')
     # ax.scatter(df_not.x, df_not.y, color='r', marker='.')
+    # ax.set_title(sim_name)
 
-    ax.scatter(x=df.r,y=df.RPS, c=df.t, marker='+')
-
-    ax.set_xlabel("r (kpc))")
+    ax.set_xlabel(r"$\tau$")
     # ax.set_ylabel(r"v (km/s)"))
     ax.set_yscale('log')
     ax.set_ylabel(r"RPS ($\rho v^2$) (Pa)")
     ax.grid(ls=':')
-
+    cbar = fig.colorbar(good_mappable)
+    cbar.ax.set_ylabel("r (kpc)")
     # Savefig
-    # file_stem = f"rps"
-    # savefig(fig, file_stem, '.png', dpi=150)
+    file_stem = f"rps"
+    savefig(fig, file_stem, '.png', dpi=300)
     # savefig(fig, file_stem, '.pdf', dpi=150)
-
 
     plt.show()
