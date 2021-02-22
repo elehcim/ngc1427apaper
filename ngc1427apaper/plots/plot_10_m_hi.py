@@ -5,7 +5,7 @@ import numpy as np
 from simulation.data_handler import DataHandler
 from simulation.simdata import get_color_from_name, get_styles_from_peri
 import cycler
-from helper import savefig
+from ngc1427apaper.helper import savefig
 # plt.style.use('./MNRAS.mplstyle')
 
 
@@ -64,4 +64,4 @@ ax[-1][1].set_xlabel(r"$\tau$");
 # for handle in lgnd.legendHandles:
 #     handle.set_sizes([5]);
 
-savefig(fig, 'm_hi', ext=".png")
+# savefig(fig, 'm_hi', ext=".png", dpi=300)
