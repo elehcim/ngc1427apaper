@@ -198,7 +198,7 @@ def get_sb(snap, sb_range, band, width, resolution, show_cbar=True, lum_pc2=Fals
                             bad_pixels=bad_pixels, show_cbar=show_cbar)
 
 
-def create_fig_sb(snap, ax_sb, sb_range, band, width, resolution, show_cbar=True):
+def create_fig_sb(snap, ax_sb, sb_range, band, width, resolution, show_cbar=True, **kwargs):
     # mag_filter = st.sidebar.slider('Magnitude filter (do not plot fainter than ... mag/arcsec^2)',
     #                                 min_value=20, max_value=sb_range[1], value=sb_range[1])
     mag_filter = sb_range[1]
@@ -207,7 +207,7 @@ def create_fig_sb(snap, ax_sb, sb_range, band, width, resolution, show_cbar=True
     sb = surface_brightness(snap, band=band, subplot=ax_sb, width=width, resolution=resolution,
                             mag_filter=mag_filter, cmap_name='nipy_spectral',
                             vmin=sb_range[0], vmax=sb_range[1],
-                            bad_pixels=bad_pixels, show_cbar=show_cbar)
+                            bad_pixels=bad_pixels, show_cbar=show_cbar, **kwargs)
     ax_sb.grid(ls=':')
 
     return sb
