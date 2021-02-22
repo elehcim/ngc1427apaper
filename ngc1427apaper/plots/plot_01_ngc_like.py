@@ -117,7 +117,7 @@ if __name__ == '__main__':
     #                text_radius=0.3, text_color='w',
     #                alpha=0.8, ls='-.')
     # draw_arrows(ax_sb, orbital_position_rotated, orbital_velocity_rotated, aperture_hi.theta, aperture_sb.theta)
-    draw_arrows_from_vec(ax_sb, p, v, h, s, color_p='w')
+    draw_arrows_from_vec(ax_sb, p, v, -h, -s, color_p='w')
 
     # ax_hi
     # hi_img = create_hi_image(snap, ax_hi, width, resolution, vmin=None, vmax=None, ellipse_smooth=ellipse_smooth)
@@ -138,5 +138,11 @@ if __name__ == '__main__':
     levels_star = np.linspace(22, 28, 4)
     do_sb_contours(sb, levels_star, ax_hi_vel, width)
 
-    plt.show()
+    savefig(fig_sb, "SB", '.png', dpi=300)
+    savefig(fig_sb, "SB", '.pdf', dpi=300)
+    savefig(fig_hi, "HI", '.png', dpi=300)
+    savefig(fig_hi, "HI", '.pdf', dpi=300)
+    savefig(fig_hi_vel, "HI_VEL", '.png', dpi=300)
+    savefig(fig_hi_vel, "HI_VEL", '.pdf', dpi=300)
+    # plt.show()
     # st.write(fig_hi)
