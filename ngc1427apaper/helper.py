@@ -619,13 +619,15 @@ def get_data(cache_file):
     return pd.read_pickle(get_data_name(cache_file))
 
 
-def savefig(fig, file_stem, ext, dpi=300, **kwargs):
+def savefig(fig, file_stem, ext, tight=True, **kwargs):
     file_name = file_stem + ext
     print(f'Saving {file_name}...')
+    if tight:
+        kwargs.update(bbox_inches='tight')
     if ext == '.png':
-        fig.savefig(file_name, dpi=dpi, bbox_inches='tight', **kwargs)
+        fig.savefig(file_name, dpi=dpi, **kwargs)
         out = f"{file_stem}-crop.png"
         os.system(f'convert -trim {file_name} {out}')
     elif ext == '.pdf':
-        fig.savefig(file_name, dpi=dpi, bbox_inches='tight', **kwargs)
+        fig.savefig(file_name, dpi=dpi, **kwargs)
         os.system(f'pdfcrop {file_name}')
