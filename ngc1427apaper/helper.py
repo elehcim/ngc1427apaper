@@ -625,9 +625,9 @@ def savefig(fig, file_stem, ext, tight=True, **kwargs):
     if tight:
         kwargs.update(bbox_inches='tight')
     if ext == '.png':
-        fig.savefig(file_name, dpi=dpi, **kwargs)
+        fig.savefig(file_name, **kwargs)
         out = f"{file_stem}-crop.png"
         os.system(f'convert -trim {file_name} {out}')
     elif ext == '.pdf':
-        fig.savefig(file_name, dpi=dpi, **kwargs)
+        fig.savefig(file_name, **kwargs)
         os.system(f'pdfcrop {file_name}')
