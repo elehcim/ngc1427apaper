@@ -107,6 +107,19 @@ def plot_rotated_axis(rm, ax):
     ax.text(xtext+0.2, ytext, 'Y', c='g', size='x-small')
     ax.text(xtext+0.4, ytext, 'Z', c='b', size='x-small')
 
+
+def add_cluster_center_direction(ax_sb, orbital_position_rotated, color_cluster='w', with_text=True):
+    cl_direction = -normify(orbital_position_rotated[0:2], 8)
+    _arrow_factor = 1.4
+    center = np.array([0.5, 0.5])
+    ax_sb.arrow(*(center+cl_direction*_arrow_factor), *cl_direction,
+        width=4e-3,
+        # head_width=1e-2,
+        length_includes_head=False, color=color_cluster, transform=ax_sb.transAxes)
+    if with_text:
+        xtext, ytext = 0, 0.97
+        ax_sb.text(xtext, ytext-0.03, 'Cluster center', c=color_cluster, size='x-small', weight='semibold', transform=ax_sb.transAxes)
+
 def add_cluster_center_velocity_directions(ax_sb, orbital_position_rotated, orbital_velocity_rotated, color_cluster='w', color_velocity='g', with_text=True):
     cl_direction = -normify(orbital_position_rotated[0:2], 8)
     v_orbit_direction = normify(orbital_velocity_rotated[0:2], 8)
