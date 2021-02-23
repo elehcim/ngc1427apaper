@@ -8,6 +8,7 @@ import numpy as np
 import pynbody
 import tqdm
 from matplotlib.colors import LogNorm, Normalize
+from matplotlib.patches import Ellipse
 from mpl_toolkits.axes_grid1 import ImageGrid
 from simulation.luminosity import surface_brightness, color_plot
 from simulation.simdata import SIM_NAME_DICT, SPECIAL_DICT, get_traj
@@ -199,6 +200,13 @@ for i, ax in enumerate(grids['sb']):
     ax.text(xtext, ytext, rf"$\tau$={s.tau:.2f}, {s.time_since_peri * 1000:.0f} Myr since peri",
             c='k', size='small', weight='normal', transform=ax.transAxes, horizontalalignment='center')
 
+for g in grids.values():
+    ax = g[0]
+    fac = 4200/7420  # from Lee Waddell email)
+    major_axis = 7
+    ellipse = Ellipse((0,0), major_axis, major_axis*fac, -15, facecolor='none', edgecolor='k')
+    ax.add_patch(ellipse)
+
 # titles
 for qty, g in grids.items():
     g.axes_all[n_snap//2].set_title(_titles[qty])
@@ -244,4 +252,4 @@ for i, g in enumerate(grids.values()):
 file_stem = 'panel68p100'
 savefig(fig, file_stem, '.png', dpi=300)
 # savefig(fig, file_stem, '.pdf')
-plt.show()
+# plt.show()
