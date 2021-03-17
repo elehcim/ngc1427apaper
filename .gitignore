@@ -2,3 +2,5 @@
 *.pyc
 __pycache__/
 .idea/
+ngc1427apaper/plots/*.pdf
+ngc1427apaper/plots/*.png
