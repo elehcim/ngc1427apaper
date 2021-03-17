@@ -15,9 +15,9 @@ from pynbody.units import Unit
 # mach_columns = ['mach', 'temp_host', 'rho_host', 'v_host']
 
 if __name__ == '__main__':
-    n = 5
-    color = plt.cm.copper(np.linspace(0, 1,n))
-    matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
+    # n = 5
+    # color = plt.cm.copper(np.linspace(0, 1,n))
+    # matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
     fig, ax = plt.subplots()
     dh = DataHandler(cache_file='data_d_orbit_sideon_20210222.pkl')
     dff = dh.data_big()
@@ -30,6 +30,7 @@ if __name__ == '__main__':
         # print(df.sim_label.iloc[0])
         # peri = df.pericenter.iloc[0]
         print(peri)
+        # df = df.iloc[slice(0, len(df), 5)]
         # ax.plot(x=df.r,y=df.RPS, marker='+')
         # ax.plot(df.r, df.RPS, label=peri)
         mappable = ax.scatter(df.t_period, df.RPS, c=df.r, label=peri, marker=markers[i], alpha=0.8)
