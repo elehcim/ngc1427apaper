@@ -5,7 +5,7 @@ from ngc1427apaper.globals import *
 from ngc1427apaper.helper import *
 
 
-def filter_out(df, tol, iso=0, with_retro=True, real_alpha=REAL_ALPHA, real_beta=REAL_BETA):
+def filter_out(df, tol, iso=0, with_retro=False, real_alpha=REAL_ALPHA, real_beta=REAL_BETA):
     rx, ry = np.cos(np.pi/3), np.sin(np.pi/3)
     if with_retro:
         l = df.query(f'{real_alpha-tol}<alpha{iso}<{real_alpha+tol} & {real_beta-tol}<beta{iso}<{real_beta+tol} &\
@@ -63,7 +63,7 @@ if __name__ == '__main__':
         for iso in (0,1,2):
             plot_tp(_df[iso], ax=grid.axes_row[row][iso], max_val=60)
 
-    grid.axes_all[2].legend(['second pericenter passage', 'first pericenter passage'])
+    grid.axes_all[2].legend(['first pericenter passage', 'second pericenter passage'])
 
     for i, ax in enumerate(grid.axes_row[0]):
         ax.set_title(fr'{isophote_target[i]} mag arcsec$^{{-2}}$')
