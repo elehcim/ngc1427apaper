@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pynbody
-import streamlit as st
 from ngc1427apaper.helper import normify, pos_vel, get_solved_rotation, get_hi, get_snap, get_sb
 from functools import lru_cache
 from simulation import derived
