@@ -33,12 +33,12 @@ class AnglesGeneratorFromTable(MapperFromTable):
                 # 'xc', 'yc', 'a', 'b', 'theta'
                 ell = fit_contour(sb, iso, self.width, self.resolution)
                 # if not np.isnan(print(ell)
-                if ell.a < ell.b:
-                    tmp = ell.a
-                    ell.a = ell.b
-                    ell.b = ell.a
-                if ell.theta > np.pi/2:
-                    ell.theta -= np.pi
+                # if ell.a < ell.b:
+                #     tmp = ell.a
+                #     ell.a = ell.b
+                #     ell.b = ell.a
+                # if ell.theta > np.pi/2:
+                #     ell.theta -= np.pi
                 # ell = np.array([xc, yc, a, b, theta])
             except (ValueError, NoIsophoteFitError):
                 ell = np.array([np.nan]*5)
