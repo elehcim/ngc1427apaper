@@ -5,13 +5,16 @@ def get_aperture_from_moments(img, width, resolution, ax=None):
     import astropy.units as u
     # https://photutils.readthedocs.io/en/stable/api/photutils.segmentation.SourceProperties.html
     cat = data_properties(img)
-    columns = ['id', 'xcentroid', 'ycentroid', 'semimajor_axis_sigma',
-               'semiminor_axis_sigma', 'orientation']
-    tbl = cat.to_table(columns=columns)
-    tbl['xcentroid'].info.format = '.10f'  # optional format
-    tbl['ycentroid'].info.format = '.10f'
-    tbl['semiminor_axis_sigma'].info.format = '.10f'
-    tbl['orientation'].info.format = '.10f'
+
+    # NOTE in photutils>=1.1 'id' is renamed to 'label'
+    # https://photutils.readthedocs.io/en/stable/whats_new/1.1.html
+    # columns = ['id', 'xcentroid', 'ycentroid', 'semimajor_axis_sigma',
+    #            'semiminor_axis_sigma', 'orientation']
+    # tbl = cat.to_table(columns=columns)
+    # tbl['xcentroid'].info.format = '.10f'  # optional format
+    # tbl['ycentroid'].info.format = '.10f'
+    # tbl['semiminor_axis_sigma'].info.format = '.10f'
+    # tbl['orientation'].info.format = '.10f'
     # print(tbl)
 
     position = (np.array((cat.xcentroid.value, cat.ycentroid.value)) - resolution/2) * width/resolution
