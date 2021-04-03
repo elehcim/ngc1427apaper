@@ -13,7 +13,7 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from scipy.spatial.transform import Rotation as R
 from simulation.derotate_simulation import derotate_pos_and_vel
 from simulation.luminosity import surface_brightness
-from simulation.util import get_pivot, get_quat, get_omega_mb
+from simulation.util import get_pivot, get_quat, get_omega_mb, SIMS_DIR
 
 from .projection_angles import Problem4
 
@@ -184,7 +184,7 @@ def get_snap(which_snap, sim_name, derotate):
     if platform.node() == 'gandalf':
         dirname = "/home/mmastrop/SIM"
     else:
-        dirname = "/home/michele/sim/MySimulations/ok_new_adhoc_or_not_affected"
+        dirname = SIMS_DIR
 
     snap_name = os.path.join(dirname, sim_name, f'out/snapshot_{which_snap:04}')
 
