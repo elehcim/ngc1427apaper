@@ -17,7 +17,7 @@ def get_aperture_from_moments(img, width, resolution, ax=None):
     # tbl['orientation'].info.format = '.10f'
     # print(tbl)
 
-    position = (np.array((cat.xcentroid.value, cat.ycentroid.value)) - resolution/2) * width/resolution
+    position = (np.array((cat.xcentroid, cat.ycentroid)) - resolution/2) * width/resolution
     # semiminor axis: The 1-sigma standard deviation along the semimajor axis of the 2D Gaussian function that has the same second-order central moments as the source.
 
     a = cat.semimajor_axis_sigma.value * width/resolution
