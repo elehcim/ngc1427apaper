@@ -8,7 +8,7 @@ from ngc1427apaper.helper import normify, pos_vel, get_solved_rotation, get_hi, 
 from functools import lru_cache
 from simulation import derived
 from simulation.ellipse_fit import fit_contour, ellipseparams2patch, NoIsophoteFitError
-from simulation.simdata import SIM_NAME_DICT, SPECIAL_DICT, get_tables, get_magnitudes, get_traj, DATA_DIR
+from simulation.simdata import SIM_NAME_DICT, SPECIAL_DICT, get_tables, get_magnitudes, get_traj
 from hi_tail import get_aperture_from_moments
 import tqdm
 
@@ -58,8 +58,8 @@ class NoSolutionError(Exception):
 
 
 @lru_cache(32)
-def cached_get_traj(sim_name, data_dir=DATA_DIR):
-    return get_traj(sim_name, data_dir)
+def cached_get_traj(sim_name):
+    return get_traj(sim_name)
 
 
 class Mapper:
