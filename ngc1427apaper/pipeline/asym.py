@@ -96,7 +96,7 @@ def parse_args(cli=None):
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument(dest='chunk', help="Chunk idx", type=int)
-    parser.add_argument('--cache-file', help="Cache file", default='cache_with_iso_and_hi_valid.pkl')
+    parser.add_argument('--cache-file', help="Cache file", default='cache_with_multi_iso_and_hi_valid.pkl')
     parser.add_argument('-s', dest='size', help="Chunk size", default=2000, type=int)
     parser.add_argument('-r', dest='resolution', help="Image resolution", default=200, type=int)
     parser.add_argument('-m', '--mu', dest='mu_limit', help="SB limit for background", default=27, type=float)
