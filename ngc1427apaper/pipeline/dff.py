@@ -6,7 +6,6 @@ import glob
 from ngc1427apaper.helper import get_peri_idx
 from simulation.simdata import SIM_NAME_DICT, SPECIAL_DICT, get_traj
 from scipy.spatial.transform import Rotation as R
-import streamlit as st
 
 _SIM_DICT = {**SIM_NAME_DICT, **SPECIAL_DICT}
 def peri(x):
@@ -43,7 +42,7 @@ def phitheta2rotation_array(phi, theta, orbital_position=None, offset_deg=210.0)
     return rotation
 
 
-def get_dff(files_folder='quest/'):
+def get_dff(files_folder):
     sol2label = lambda f: os.path.splitext(os.path.basename(f))[0]
 
     files = glob.glob(os.path.join(files_folder,'*.sol'))
@@ -104,19 +103,19 @@ def get_dff(files_folder='quest/'):
     return dff, orbital_position_rotated
 
 if __name__ == '__main__':
-    dff, pos = get_dff(files_folder='quest/with_iso/')
+    dff, pos = get_dff(files_folder='quest/sol/')
     # From data cache1:
     # -44 < theta_sb < 224
     # -90 < theta_hi < 90
 
     # In this way theta_sb_sanitized is in [-90, 90]
     # theta_hi_sanitized is in [-180, 0]
-    dff['theta_hi_sanitized'] = np.where(dff['theta_hi']>0, dff['theta_hi']-180, dff['theta_hi'])
-    for i in range(3):
-        dff[f'theta_sb{i}_sanitized'] = np.where(dff[f'theta_sb{i}']>90, dff[f'theta_sb{i}']-180, dff[f'theta_sb{i}'])
-        # print(dff[['alpha', 'beta', 'theta_sb', 'theta_hi', 'theta_sb_sanitized', 'theta_hi_sanitized']].describe())
-        dff[f'alpha{i}'] = 30 - dff[f'theta_sb{i}_sanitized']
-        dff[f'beta{i}'] = dff[f'theta_sb{i}_sanitized'] - dff['theta_hi_sanitized']
-        print(dff[[f'alpha{i}', f'beta{i}', f'theta_sb{i}_sanitized', 'theta_hi_sanitized']].describe())
+    # dff['theta_hi_sanitized'] = np.where(dff['theta_hi']>0, dff['theta_hi']-180, dff['theta_hi'])
+    # for i in range(3):
+    #     dff[f'theta_sb{i}_sanitized'] = np.where(dff[f'theta_sb{i}']>90, dff[f'theta_sb{i}']-180, dff[f'theta_sb{i}'])
+    #     # print(dff[['alpha', 'beta', 'theta_sb', 'theta_hi', 'theta_sb_sanitized', 'theta_hi_sanitized']].describe())
+    #     dff[f'alpha{i}'] = 30 - dff[f'theta_sb{i}_sanitized']
+    #     dff[f'beta{i}'] = dff[f'theta_sb{i}_sanitized'] - dff['theta_hi_sanitized']
+    #     print(dff[[f'alpha{i}', f'beta{i}', f'theta_sb{i}_sanitized', 'theta_hi_sanitized']].describe())
 
     dff.to_pickle('cache_with_iso.pkl')
