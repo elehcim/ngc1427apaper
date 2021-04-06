@@ -1,58 +1,16 @@
 from collections import defaultdict
-from collections.abc import Iterable
 
 import numpy as np
 import pandas as pd
 import tqdm
-from simulation.ellipse_fit import fit_contour, NoIsophoteFitError
-
-from ngc1427apaper.helper import get_hi, get_sb
-from mappers import MapperFromTable
-
-
-def get_iterable(x):
-    if isinstance(x, Iterable):
-        return x
-    else:
-        return (x,)
-
-class AnglesGeneratorFromTable(MapperFromTable):
-    def __init__(self, row, width=35, resolution=200):
-        super().__init__(row, width=width, resolution=resolution)
-
-    def get_hi(self, ellipse_smooth=(10, 10)):
-        hi_img = get_hi(self.snap, self.width, self.resolution, ellipse_smooth=ellipse_smooth)
-        return np.min(hi_img), np.max(hi_img)
-
-    def get_params_from_sb(self, band='sdss_r', sb_range=(21.0, 27.5), isophote_sb=26.5):
-        sb = get_sb(self.snap, sb_range, band, self.width, self.resolution)
-        self._isophote_sb = get_iterable(isophote_sb)
-        params = list()
-        for iso in self._isophote_sb:
-            try:
-                # 'xc', 'yc', 'a', 'b', 'theta'
-                ell = fit_contour(sb, iso, self.width, self.resolution)
-                # if not np.isnan(print(ell)
-                # if ell.a < ell.b:
-                #     tmp = ell.a
-                #     ell.a = ell.b
-                #     ell.b = ell.a
-                # if ell.theta > np.pi/2:
-                #     ell.theta -= np.pi
-                # ell = np.array([xc, yc, a, b, theta])
-            except (ValueError, NoIsophoteFitError):
-                ell = np.array([np.nan]*5)
-            params.append(ell)
-
-        return np.array(params)
-
+from angles_generator import AnglesGeneratorFromTable
 
 def compute_hi_extrema_and_iso(dff, idxs):
-    isophote_target = 21.5, 22.5, 23.5, 24.5, 25.5
+    isophote_target = 21.5, 22.5, 23.5, 24.5, 25.5, 26.0, 26.5, 27.0
 
     d = defaultdict(list)
-    for i in tqdm.tqdm(idxs):
-        row = dff.iloc[i]
+    for c in tqdm.tqdm(idxs):
+        row = dff.iloc[c]
         # print(row.sim, row.snap)
         # print(row.sim, row.snap)
         ag = AnglesGeneratorFromTable(row)
@@ -65,6 +23,7 @@ def compute_hi_extrema_and_iso(dff, idxs):
             d[f'b{i}'].append(p[3])
             d[f'theta{i}'].append(p[4]*180.0/np.pi)
         hi_min, hi_max = ag.get_hi()
+        d[f'theta_hi'].append(ag.get_angle_from_hi() * 180 / np.pi)
         d[f'hi_min'].append(hi_min)
         d[f'hi_max'].append(hi_max)
     return d
