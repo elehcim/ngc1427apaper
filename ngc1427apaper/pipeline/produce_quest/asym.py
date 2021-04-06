@@ -1,4 +1,3 @@
-from collections import defaultdict
 import numpy as np
 import pandas as pd
 import tqdm
@@ -21,9 +20,12 @@ def morph_to_df(morph, index=[0]):
 _EMPTY_MORPH = morph_to_df(statmorph.SourceMorphology(np.ones((2,2)),np.ones((2,2)),1, gain=1))
 _NAN_MORPH = pd.DataFrame(np.zeros((1,len(_EMPTY_MORPH.columns)))*np.nan, columns=_EMPTY_MORPH.columns)
 
+
 class NonParametricMeasuresFromTable(MapperFromTable):
     def __init__(self, row, width=35, resolution=200):
-        super().__init__(row, width=width, resolution=resolution)
+        self.width = width
+        self.resolution = resolution
+        super().__init__(row)
 
     def get_hi(self, ellipse_smooth=(10, 10)):
         hi_img = get_hi(self.snap, self.width, self.resolution, ellipse_smooth=ellipse_smooth)
