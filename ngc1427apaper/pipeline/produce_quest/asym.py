@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import tqdm
 import matplotlib.pyplot as plt
-from helper import get_hi, get_sb
+from ngc1427apaper.helper import get_hi, get_sb
 from mappers import MapperFromTable
 import statmorph
 from simulation import derived
@@ -85,7 +85,7 @@ def compute_quest(dff, chunk, size, resolution=200, mu_limit=27):
     # breakpoint()
     # df['t_period'] = dff['t_period'].iloc[slice(*limits)].array
     # print(dff[['sim', 'snap']].iloc[slice(*limits)])
-    stem = f'quest/morph/morph.{chunk:02}'
+    stem = f'../quest/morph/morph.{chunk:02}'
     df.to_pickle(stem + '.pkl')
     from astropy.table import Table
     tbl = Table.from_pandas(df)
@@ -97,6 +97,7 @@ def parse_args(cli=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(dest='chunk', help="Chunk idx", type=int)
     parser.add_argument('--cache-file', help="Cache file", default='cache_with_multi_iso_and_hi_valid.pkl')
+    # parser.add_argument('--cache-file', help="Cache file", default='cache_with_iso.pkl')
     parser.add_argument('-s', dest='size', help="Chunk size", default=2000, type=int)
     parser.add_argument('-r', dest='resolution', help="Image resolution", default=200, type=int)
     parser.add_argument('-m', '--mu', dest='mu_limit', help="SB limit for background", default=27, type=float)
