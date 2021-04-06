@@ -37,7 +37,7 @@ def compute_quest(sim_label):
     df = pd.DataFrame(d)
     df.to_pickle(f'../quest/sol/{sim_label}.sol')
     from astropy.table import Table
-    tbl = Table.from_pandas(df)
+    tbl = Table.from_pandas(df).filled(np.nan)
     tbl.write(f'../quest/sol/{sim_label}.sol.fits', overwrite=True)
 
 

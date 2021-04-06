@@ -53,7 +53,7 @@ def compute_quest_chunk(dff, chunk, size):
     # print(dff[['sim', 'snap']].iloc[slice(*limits)])
     df.to_pickle(f'../quest/iso_hi/iso_hi.{chunk:02}.pkl')
     from astropy.table import Table
-    tbl = Table.from_pandas(df)
+    tbl = Table.from_pandas(df).filled(np.nan)
     tbl.write(f'../quest/iso_hi/iso_hi.{chunk:02}.fits', overwrite=True)
 
 
