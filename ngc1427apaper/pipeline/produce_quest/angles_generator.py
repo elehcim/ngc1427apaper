@@ -1,11 +1,26 @@
 import numpy as np
 from simulation.ellipse_fit import fit_contour, NoIsophoteFitError, EllParams
-from hi_tail import get_aperture_from_moments
-
 from ngc1427apaper.helper import get_hi, get_sb
 from mappers import MapperFromTable
 from collections.abc import Iterable
-from photutils import EllipticalAperture
+
+
+def get_aperture_from_moments(img, width, resolution, ax=None):
+    from photutils import data_properties, EllipticalAperture
+    import astropy.units as u
+    # https://photutils.readthedocs.io/en/stable/api/photutils.segmentation.SourceProperties.html
+    cat = data_properties(img)
+    position = (np.array((cat.xcentroid.value, cat.ycentroid.value)) - resolution/2) * width/resolution
+    # semiminor axis: The 1-sigma standard deviation along the semimajor axis of the 2D Gaussian function
+    # that has the same second-order central moments as the source.
+
+    a = cat.semimajor_axis_sigma.value * width/resolution
+    b = cat.semiminor_axis_sigma.value * width/resolution
+    theta = cat.orientation.to(u.rad).value
+    apertures = EllipticalAperture(position, a, b, theta=theta)
+    if ax is not None:
+        apertures.plot(color='#d62728', axes=ax)
+    return apertures
 
 
 def sanitize_ellipseparams(ell):
@@ -19,12 +34,11 @@ def sanitize_ellipseparams(ell):
         theta = theta % 2*np.pi
     return EllParams(xc, yc, a, b, theta)
 
-def get_iterable(x):
+def _get_iterable(x):
     if isinstance(x, Iterable):
         return x
     else:
         return (x,)
-
 
 class AnglesGeneratorFromTable(MapperFromTable):
     def __init__(self, row, width=35, resolution=200):
@@ -38,22 +52,13 @@ class AnglesGeneratorFromTable(MapperFromTable):
 
     def get_params_from_sb(self, isophote_sb, band='sdss_r', sb_range=(21.0, 27.5) ):
         sb = get_sb(self.snap, sb_range, band, self.width, self.resolution)
-        self._isophote_sb = get_iterable(isophote_sb)
+        self._isophote_sb = _get_iterable(isophote_sb)
         params = list()
         for iso in self._isophote_sb:
             try:
                 # 'xc', 'yc', 'a', 'b', 'theta'
                 ell_fitted = fit_contour(sb, iso, self.width, self.resolution)
                 ell = sanitize_ellipseparams(ell_fitted)
-
-                # if not np.isnan(print(ell)
-                # if ell.a < ell.b:
-                #     tmp = ell.a
-                #     ell.a = ell.b
-                #     ell.b = ell.a
-                # if ell.theta > np.pi/2:
-                #     ell.theta -= np.pi
-                # ell = np.array([xc, yc, a, b, theta])
             except (ValueError, NoIsophoteFitError):
                 ell = np.array([np.nan]*5)
             params.append(ell)
