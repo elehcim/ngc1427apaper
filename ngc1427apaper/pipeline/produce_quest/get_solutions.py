@@ -1,20 +1,12 @@
 from collections import defaultdict
-
-import numpy as np
 import pandas as pd
-from angles_generator import AnglesGenerator
+from mappers import Mapper
 import tqdm
-
 
 def generate_table(sim_label, length):
     from itertools import product, chain
     rp, vp = 137, -693
     dr, dv = 60, 100
-    isophote_sb = 26.5
-    delta_iso = 0.5
-
-    isophote_target = (isophote_sb-delta_iso, isophote_sb, isophote_sb+delta_iso)
-    nans = np.full_like(isophote_target, np.nan)
 
     d = defaultdict(list)
     for s in tqdm.tqdm(range(length)):
@@ -32,7 +24,7 @@ def generate_table(sim_label, length):
             d['rp'].append(_rp)
             d['vp'].append(_vp)
             d['sol'].append(sol)
-            ag = AnglesGenerator(sim_label, s+1, _rp, _vp, sign, sol)
+            ag = Mapper(sim_label, s+1, _rp, _vp, sign, sol)
             d[f'phi'].append(ag.phi)
             d[f'theta'].append(ag.theta)
 
