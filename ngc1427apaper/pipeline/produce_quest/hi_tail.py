@@ -8,7 +8,7 @@ def get_aperture_from_moments(img, width, resolution, ax=None):
 
     # NOTE in photutils>=1.1 'id' is renamed to 'label'
     # https://photutils.readthedocs.io/en/stable/whats_new/1.1.html
-    # columns = ['id', 'xcentroid', 'ycentroid', 'semimajor_axis_sigma',
+    # columns = ['label', 'xcentroid', 'ycentroid', 'semimajor_axis_sigma',
     #            'semiminor_axis_sigma', 'orientation']
     # tbl = cat.to_table(columns=columns)
     # tbl['xcentroid'].info.format = '.10f'  # optional format
@@ -16,8 +16,8 @@ def get_aperture_from_moments(img, width, resolution, ax=None):
     # tbl['semiminor_axis_sigma'].info.format = '.10f'
     # tbl['orientation'].info.format = '.10f'
     # print(tbl)
-
-    position = (np.array((cat.xcentroid, cat.ycentroid)) - resolution/2) * width/resolution
+    # print(cat)
+    position = (np.array((cat.xcentroid.value, cat.ycentroid.value)) - resolution/2) * width/resolution
     # semiminor axis: The 1-sigma standard deviation along the semimajor axis of the 2D Gaussian function that has the same second-order central moments as the source.
 
     a = cat.semimajor_axis_sigma.value * width/resolution
