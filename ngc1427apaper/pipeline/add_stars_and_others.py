@@ -5,7 +5,7 @@ from simulation.units import gadget_dens_units
 import tqdm
 import pynbody
 from collections import defaultdict
-from ngc1427apaper.globals import isophote_target, isophote_target_2
+from ngc1427apaper.globals import ALL_ISOPHOTES
 
 table_columns = ['mass_star', 'r_eff3d', 'sfr', 'rho_host']
 mach_columns = ['mach', 'temp_host']
@@ -51,7 +51,7 @@ for c in columns:
 # # Pa = N/m2 = kg m/s2 /m2 = kg / (s2 m)
 # dff['RPS'] = dff.v**2 * dff.rho_host * (pynbody.units.Unit('km**2 s**-2 amu cm**-3').in_units('Pa'))
 
-for i in [*isophote_target]+[*isophote_target_2]:
+for i in ALL_ISOPHOTES:
     dff[f'dc{i}'] = np.linalg.norm([dff[f'xc{i}'], dff[f'yc{i}']],axis=0)
 
 dff.to_pickle('selected_with_multi_iso_and_morph_and_data.pkl')

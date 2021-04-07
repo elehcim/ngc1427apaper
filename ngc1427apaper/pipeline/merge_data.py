@@ -3,6 +3,7 @@ import glob
 import pandas as pd
 from simulation.simdata import SIM_NAME_DICT, SPECIAL_DICT
 import numpy as np
+from ngc1427apaper.globals import ALL_ISOPHOTES
 SIM_DICT = {**SIM_NAME_DICT, **SPECIAL_DICT}
 
 files_folder='quest/iso_hi'
@@ -31,7 +32,7 @@ with_sol = dff.index[dff.solution_found]
 assert len(dff.loc[with_sol]) == len(dfh)
 dff.loc[with_sol, 'hi_max'] = dfh.hi_max.array
 
-isophote_target = 21.5, 22.5, 23.5, 24.5, 25.5
+isophote_target = ALL_ISOPHOTES
 
 # From data cache1:
 # -44 < theta_sb < 224

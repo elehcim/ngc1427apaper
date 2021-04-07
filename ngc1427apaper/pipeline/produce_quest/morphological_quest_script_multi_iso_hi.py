@@ -4,9 +4,10 @@ import numpy as np
 import pandas as pd
 import tqdm
 from angles_generator import AnglesGeneratorFromTable
+from ngc1427apaper.globals import ALL_ISOPHOTES
 
 def compute_hi_extrema_and_iso(dff, idxs):
-    isophote_target = 21.5, 22.5, 23.5, 24.5, 25.5, 26.0, 26.5, 27.0
+    isophote_target = ALL_ISOPHOTES
 
     d = defaultdict(list)
     for c in tqdm.tqdm(idxs):
