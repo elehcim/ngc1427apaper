@@ -35,24 +35,43 @@ for c in columns:
     dff[c] = new_data[c]
 
 # convert density
-# dff['rho_host'] = dff.rho_host * gadget_dens_units.in_units('amu cm**-3')
+dff['rho_host'] = dff.rho_host * gadget_dens_units.in_units('amu cm**-3')
 
 
-# k_B = 1.380649e-23 # J/K
-# ## mean constituent mass
-# MU_C = 0.58 # amu   ## fully ionized
+k_B = 1.380649e-23 # J/K
+## mean constituent mass
+MU_C = 0.58 # amu   ## fully ionized
 
-# # (pynbody.units.Unit('amu cm**-3 J K**-1 K amu**-1').in_units('Pa')) == 1e6
-# dff['p_host'] = dff.rho_host * k_B * dff.temp_host / MU_C * (pynbody.units.Unit('amu cm**-3 J K**-1 K amu**-1').in_units('Pa'))
+# (pynbody.units.Unit('amu cm**-3 J K**-1 K amu**-1').in_units('Pa')) == 1e6
+dff['p_host'] = dff.rho_host * k_B * dff.temp_host / MU_C * (pynbody.units.Unit('amu cm**-3 J K**-1 K amu**-1').in_units('Pa'))
 
 
-# dff['v'] = np.linalg.norm([dff.vx, dff.vy, dff.vz], axis=0)
+dff['v'] = np.linalg.norm([dff.vx, dff.vy, dff.vz], axis=0)
 
-# # Pa = N/m2 = kg m/s2 /m2 = kg / (s2 m)
-# dff['RPS'] = dff.v**2 * dff.rho_host * (pynbody.units.Unit('km**2 s**-2 amu cm**-3').in_units('Pa'))
+# Pa = N/m2 = kg m/s2 /m2 = kg / (s2 m)
+dff['RPS'] = dff.v**2 * dff.rho_host * (pynbody.units.Unit('km**2 s**-2 amu cm**-3').in_units('Pa'))
 
 for i in ALL_ISOPHOTES:
     dff[f'dc{i}'] = np.linalg.norm([dff[f'xc{i}'], dff[f'yc{i}']],axis=0)
+
+
+to_rename_columns = 'theta_sb', 'alpha', 'beta', 'xc', 'yc', 'a', 'b', 'e'
+
+new_col_names = dict()
+for col in to_rename_columns:
+    for i, iso in enumerate((26.0, 26.5, 27.0)):
+        new_col_names[f'{col}{iso}'] = f'{col}{i}'
+
+sanitized = {'theta_sb26.0_sanitized':'theta_sb0_sanitized',
+             'theta_sb26.5_sanitized':'theta_sb1_sanitized',
+             'theta_sb27.0_sanitized':'theta_sb2_sanitized'
+            }
+
+new_col_names.update(sanitized)
+
+print(new_col_names)
+dff.rename(columns=new_col_names, inplace=True)
+
 
 dff.to_pickle('selected_with_multi_iso_and_morph_and_data.pkl')
 # dff[['p_host', 'RPS']].plot()
