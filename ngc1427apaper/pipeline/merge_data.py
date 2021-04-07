@@ -59,16 +59,16 @@ for i in isophote_target:
     dff[f'beta{i}'] = dff[f'theta_sb{i}_sanitized'] - dff['theta_hi_sanitized']
 
 
-# to_rename_columns = 'theta_sb', 'alpha', 'beta', 'xc', 'yc', 'a', 'b', 'e'
+to_add_columns = 'theta_sb', 'alpha', 'beta', 'xc', 'yc', 'a', 'b', 'e'
 
-# new_col_names = dict()
-# for col in to_rename_columns:
-#     for i, iso in enumerate((26.0, 26.5, 27.0)):
-#         new_col_names[f'{col}{i}'] = f'{col}{iso}'
+# Add columns with old-styles names
+for col in to_add_columns:
+    for i, iso in enumerate((26.0, 26.5, 27.0)):
+        dff[f'{col}{i}'] = dff[f'{col}{iso}']
 
-# sanitized = {'theta_sb0_sanitized':'theta_sb26.0_sanitized',
-#              'theta_sb1_sanitized':'theta_sb26.5_sanitized',
-#              'theta_sb2_sanitized':'theta_sb27.0_sanitized'
+# sanitized = {'theta_sb26.0_sanitized':'theta_sb0_sanitized',
+#              'theta_sb26.5_sanitized':'theta_sb1_sanitized',
+#              'theta_sb27.0_sanitized':'theta_sb2_sanitized',
 #             }
 
 # new_col_names.update(sanitized)
@@ -76,8 +76,24 @@ for i in isophote_target:
 # print(new_col_names)
 # dff.rename(columns=new_col_names, inplace=True)
 
+# I drop already sanitized columns:
+to_drop_columns = []
+for i in isophote_target:
+    # to_drop_columns.append(f'a{i}')
+    # to_drop_columns.append(f'b{i}')
+    to_drop_columns.append(f'theta_sb{i}')
 
-# TODO drop some columns
+dff.drop(columns=to_drop_columns, inplace=True)
+
+
+# Add columns with old-styles names
+
+# for col in to_rename_columns:
+#     for i, iso in enumerate((26.0, 26.5, 27.0)):
+#         new_col_names[f'{col}{iso}'] = f'{col}{i}'
+# dff['theta_sb0_sanitized'] = dff['theta_sb26.0_sanitized']
+# dff['theta_sb1_sanitized'] = dff['theta_sb26.5_sanitized']
+# dff['theta_sb2_sanitized'] = dff['theta_sb27.0_sanitized']
 
 outname = 'cache_with_multi_iso_and_hi_valid.pkl'
 print(f'Writing: {outname}')
