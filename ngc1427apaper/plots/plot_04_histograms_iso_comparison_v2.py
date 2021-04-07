@@ -61,7 +61,7 @@ if __name__ == '__main__':
     colors = 'r','g','b'
     for _df, row in zip((df20,), range(nrows)):
         for iso in (0,1,2):
-            plot_tp(_df[iso], ax=grid.axes_row[row][iso], max_val=60)
+            plot_tp(_df[iso], ax=grid.axes_row[row][iso], max_val=50)
 
     grid.axes_all[2].legend(['first pericenter passage', 'second pericenter passage'])
 
