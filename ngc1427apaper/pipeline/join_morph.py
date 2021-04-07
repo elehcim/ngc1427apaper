@@ -27,7 +27,7 @@ queried = dff.query(f'not phi.isnull() & hi_max > 1e15 & (vx_rot * {rx} + vy_rot
 # Get only oriented and selected snapshots
 good = queried.index
 
-assert len(dff.loc[good]) == len(dfh)
+assert len(dff.loc[good]) == len(dfh), f"{len(dff.loc[good])} != {len(dfh)}"
 # IMPORTANT: Use array otherwise it assigns looking for the index
 for col in dfh.columns:
     print(col)

@@ -45,7 +45,7 @@ def compute_morph(dff, idxs, resolution, I_limit, **kwargs):
         ag = NonParametricMeasuresFromTable(row, resolution=resolution)
         ag.process()
         image = ag.get_lum()
-        segmap = np.ones((resolution,resolution), dtype=np.int32)
+        segmap = np.ones((resolution, resolution), dtype=np.int32)
         segmap[image<I_limit] = 0
 
         if segmap.max() == 0:
