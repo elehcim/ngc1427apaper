@@ -1,2 +1,4 @@
 quest/
 first_pkl/
+*.pkl
+*.fits
