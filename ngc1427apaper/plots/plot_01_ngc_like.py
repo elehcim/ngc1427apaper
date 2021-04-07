@@ -28,7 +28,7 @@ def filter_out_with_velocity(df, tol, iso=1, real_alpha=REAL_ALPHA, real_beta=RE
 
 
 if __name__ == '__main__':
-    dff = get_data('cache_with_iso_and_hi_valid.pkl')
+    dff = get_data('cache_with_multi_iso_and_hi_valid.pkl')
     df = filter_out_with_velocity(dff, tol=15)
 
     row = df.query('sim == "68p100" & snap == 49 & rp == 77 & vp == -793 & sol == 2 & sign == 1')
@@ -138,11 +138,11 @@ if __name__ == '__main__':
     levels_star = np.linspace(22, 28, 4)
     do_sb_contours(sb, levels_star, ax_hi_vel, width)
 
-    savefig(fig_sb, "SB", '.png', dpi=300)
+    # savefig(fig_sb, "SB", '.png', dpi=300)
     savefig(fig_sb, "SB", '.pdf', dpi=300)
-    savefig(fig_hi, "HI", '.png', dpi=300)
+    # savefig(fig_hi, "HI", '.png', dpi=300)
     savefig(fig_hi, "HI", '.pdf', dpi=300)
-    savefig(fig_hi_vel, "HI_VEL", '.png', dpi=300)
+    # savefig(fig_hi_vel, "HI_VEL", '.png', dpi=300)
     savefig(fig_hi_vel, "HI_VEL", '.pdf', dpi=300)
     # plt.show()
     # st.write(fig_hi)

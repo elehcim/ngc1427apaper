@@ -44,7 +44,7 @@ def plot_tp(df, ax, max_val=None, **kwargs):
 
 
 if __name__ == '__main__':
-    dff = get_data('selected_with_iso_and_morph_and_data.pkl')
+    dff = get_data('selected_with_multi_iso_and_morph_and_data.pkl')
     df20 = filter_out(dff, 20, iso=0), filter_out(dff, 20, iso=1), filter_out(dff, 20, iso=2)
 
     nrows = 1

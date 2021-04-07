@@ -5,7 +5,7 @@ from ngc1427apaper.helper import *
 
 if __name__ == '__main__':
 
-    dff = get_data('cache_with_iso_and_hi_valid.pkl')
+    dff = get_data('cache_with_multi_iso_and_hi_valid.pkl')
 
 
     df = dff.query('sim=="69p200" & rp==137 & vp==-693 & sign==1')

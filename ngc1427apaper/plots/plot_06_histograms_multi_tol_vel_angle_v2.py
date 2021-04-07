@@ -53,7 +53,7 @@ def plot_tp(df, ax, max_val=None, **kwargs):
 
 
 if __name__ == '__main__':
-    dff = get_data('selected_with_iso_and_morph_and_data.pkl')
+    dff = get_data('selected_with_multi_iso_and_morph_and_data.pkl')
     dff['vxy_rot'] = np.linalg.norm([dff.vx_rot, dff.vy_rot], axis=0)
     dff['vel_angle'] = np.arctan2(dff.vxy_rot, -dff.vz_rot)*180/np.pi
     dff['vel_angle_abs'] = np.abs(dff['vel_angle'])
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
     # Savefig
     file_stem = f"multi_tol_vel_angle_bins_gauss{bin_limit}_{nbins}"
-    savefig(fig, file_stem, '.png')
+    # savefig(fig, file_stem, '.png')
     savefig(fig, file_stem, '.pdf')
 
     plt.show()

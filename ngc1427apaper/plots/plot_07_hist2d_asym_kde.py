@@ -81,7 +81,7 @@ def plot_hist2d(df, ax, max_val=None, nearest_peri=1, **kwargs):
 
 
 if __name__ == '__main__':
-    dff = get_data('selected_with_iso_and_morph_and_data.pkl')
+    dff = get_data('selected_with_multi_iso_and_morph_and_data.pkl')
     df = filter_out(dff, 20, iso=0), filter_out(dff, 20, iso=1), filter_out(dff, 20, iso=2)
 
     nrows = 1
@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     # Savefig
     file_stem = f"hist2d_tp_A_bins{bins}_kde"
-    savefig(fig, file_stem, '.png', dpi=150)
+    # savefig(fig, file_stem, '.png', dpi=150)
     savefig(fig, file_stem, '.pdf', dpi=150)
 
 

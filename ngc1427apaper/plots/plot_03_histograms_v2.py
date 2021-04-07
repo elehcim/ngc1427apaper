@@ -37,7 +37,7 @@ def plot_1_passage(df, axs=None, max_val=None, nearest_peri=1):
 
 
 if __name__ == '__main__':
-    dff = get_data('selected_with_iso_and_morph_and_data.pkl')
+    dff = get_data('selected_with_multi_iso_and_morph_and_data.pkl')
     tol = 10
     df10 = filter_out(dff, tol)
     df15 = filter_out(dff, 15)
@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     # Savefig
     file_stem = f"histo_iso26.5_bins0.35-16"
-    savefig(fig, file_stem, '.png')
+    # savefig(fig, file_stem, '.png')
     savefig(fig, file_stem, '.pdf')
 
     plt.show()

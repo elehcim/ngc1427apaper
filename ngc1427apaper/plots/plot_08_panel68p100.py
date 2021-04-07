@@ -120,7 +120,7 @@ print(snaps)
 n_snap = len(snaps)
 maps = list()
 
-dff = get_data('cache_with_iso_and_hi_valid.pkl')
+dff = get_data('cache_with_multi_iso_and_hi_valid.pkl')
 
 df = dff.query(f'sim == "{sim_label}" & snap == {which_snap} & rp == 77 & vp == -793 & sol == 2 & sign == 1')
 print(df)

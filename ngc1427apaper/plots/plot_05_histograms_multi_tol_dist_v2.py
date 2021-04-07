@@ -53,7 +53,7 @@ def plot_tp(df, ax, max_val=None, **kwargs):
     ax.set_ylabel('# oriented snaps')
 
 if __name__ == '__main__':
-    dff = get_data('selected_with_iso_and_morph_and_data.pkl')
+    dff = get_data('selected_with_multi_iso_and_morph_and_data.pkl')
     iso = 1
     df = filter_out(dff, 20, iso=iso), filter_out(dff, 15, iso=iso), filter_out(dff, 10, iso=iso)
 
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
     # Savefig
     file_stem = f"multi_tol_dist_gauss_bins{bin_limit}_{nbins}"
-    savefig(fig, file_stem, '.png')
+    # savefig(fig, file_stem, '.png')
     savefig(fig, file_stem, '.pdf')
 
     plt.show()
