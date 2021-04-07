@@ -22,7 +22,7 @@ labels = {'avg_mu_e': r"$\bar{\mu}_{e,r'}$ [mag/arcsec$^2$]",
 
 
 # d = DataHandler(cache_file='data_d_orbit_sideon_20191212.pkl').data()
-big_df = DataHandler(cache_file='data_d_orbit_sideon_20210219.pkl').data_big()
+big_df = DataHandler(cache_file='data_d_orbit_sideon_20210402.pkl').data_big()
 
 n = 5
 color = plt.cm.copper(np.linspace(0, 1,n))
@@ -64,4 +64,4 @@ ax[-1][1].set_xlabel(r"$\tau$");
 # for handle in lgnd.legendHandles:
 #     handle.set_sizes([5]);
 
-# savefig(fig, 'm_hi', ext=".png", dpi=300)
+savefig(fig, 'm_hi', ext=".png", dpi=300)

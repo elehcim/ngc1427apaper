@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # color = plt.cm.copper(np.linspace(0, 1,n))
     # matplotlib.rcParams['axes.prop_cycle'] = cycler.cycler('color', color)
     fig, ax = plt.subplots()
-    dh = DataHandler(cache_file='data_d_orbit_sideon_20210222.pkl')
+    dh = DataHandler(cache_file='data_d_orbit_sideon_20210402.pkl')
     dff = dh.data_big()
     sim_name = 69002
     dfq = dff.query(f'name == "{sim_name}" & pericenter!=100 & pericenter!=200')
