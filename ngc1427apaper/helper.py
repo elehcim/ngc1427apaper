@@ -643,4 +643,4 @@ def savefig(fig, file_stem, ext, tight=True, **kwargs):
         os.system(f'convert -trim {file_name} {out}')
     elif ext == '.pdf':
         fig.savefig(file_name, **kwargs)
-        os.system(f'pdfcrop {file_name}')
+        os.system(f'pdfcrop {file_name} {file_name}')
