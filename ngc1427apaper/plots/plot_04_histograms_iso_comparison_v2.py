@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 import matplotlib.pyplot as plt
-
-from ngc1427apaper.globals import *
-from ngc1427apaper.helper import *
+import numpy as np
+from ngc1427apaper.globals import REAL_ALPHA, REAL_BETA, isophote_target
+from ngc1427apaper.helper import savefig, get_data
 
 
 def filter_out(df, tol, iso=0, with_retro=False, real_alpha=REAL_ALPHA, real_beta=REAL_BETA):
