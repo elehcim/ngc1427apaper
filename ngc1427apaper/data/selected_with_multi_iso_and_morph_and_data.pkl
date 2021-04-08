@@ -1,1 +1,1 @@
-/home/michele/sim/analysis/ng_ana/Answers_to_questions/15_NGC1427A/selected_with_multi_iso_and_morph_and_data.pkl
+/home/michele/sim/analysis/ng_ana/Answers_to_questions/15_NGC1427A/pkg/ngc1427apaper/pipeline/selected_with_multi_iso_and_morph_and_data.pkl
