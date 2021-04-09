@@ -137,7 +137,7 @@ if __name__ == '__main__':
     # Savefig
     file_stem = f"hist2d_tp_A_bins{bins}_kde"
     # savefig(fig, file_stem, '.png', dpi=150)
-    savefig(fig, file_stem, '.pdf', dpi=150)
+    savefig(fig, file_stem, '.png', dpi=150)
 
 
     # Try KDE
