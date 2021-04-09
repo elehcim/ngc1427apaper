@@ -69,4 +69,4 @@ if __name__ == '__main__':
     # savefig(fig, file_stem, '.png')
     savefig(fig, file_stem, '.pdf')
 
-    plt.show()
+    # plt.show()

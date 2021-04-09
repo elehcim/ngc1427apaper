@@ -57,4 +57,4 @@ if __name__ == '__main__':
     savefig(fig, file_stem, '.png', dpi=300)
     # savefig(fig, file_stem, '.pdf', dpi=150)
 
-    plt.show()
+    # plt.show()
