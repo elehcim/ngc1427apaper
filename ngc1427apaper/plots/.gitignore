@@ -1,1 +1,4 @@
 for_referee/
+figures/
+*.fits
+r-band/*.png
