@@ -30,7 +30,7 @@ def plot_tp(df, ax, max_val=None, **kwargs):
     what = 'vel_angle_abs'
 
     print(kwargs['color'])
-    df[what].hist(ax=ax, legend=False, range=(0,90),
+    df[what].hist(ax=ax, legend=False,
      bins=bins,
       alpha=0.6,
       **kwargs)
@@ -46,8 +46,8 @@ def plot_tp(df, ax, max_val=None, **kwargs):
     #         **kwargs)
     ax.set_xlabel(r'$\gamma$ (deg)')
 
-    # if max_val is not None:
-    #     ax.set_ylim(0, max_val)
+    if max_val is not None:
+        ax.set_ylim(0, max_val)
     ax.grid(ls=':')
     ax.set_ylabel('# oriented snaps')
 
