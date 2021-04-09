@@ -64,4 +64,4 @@ ax[-1][1].set_xlabel(r"$\tau$");
 # for handle in lgnd.legendHandles:
 #     handle.set_sizes([5]);
 
-savefig(fig, 'm_hi', ext=".png", dpi=300)
+savefig(fig, 'm_hi', ext=".pdf", dpi=300)
