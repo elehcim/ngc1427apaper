@@ -12,6 +12,7 @@ from matplotlib.patches import Ellipse
 from mpl_toolkits.axes_grid1 import ImageGrid
 from simulation.luminosity import surface_brightness, color_plot
 from simulation.simdata import SIM_NAME_DICT, SPECIAL_DICT, get_traj
+import simulation.derived
 
 from ngc1427apaper.helper import (age_map, cii_map, get_data, get_data_name, add_cluster_center_direction,
                                   add_cluster_center_velocity_directions, phitheta2rotation, savefig)
@@ -194,8 +195,8 @@ for i, ax in enumerate(grids['sb']):
                        levels=levels_hi, colors='k',
                        linewidths=0.8, linestyles='--', alpha=0.8)
     s = maps[i]
-    add_cluster_center_direction(ax,
-                         s.orbital_position_rotated,
+    add_cluster_center_velocity_directions(ax,
+                         s.orbital_position_rotated, s.orbital_velocity_rotated,
                          color_cluster='k', with_text=False)
     ax.text(xtext, ytext, rf"$\tau$={s.tau:.2f}, {s.time_since_peri * 1000:.0f} Myr since peri",
             c='k', size='small', weight='normal', transform=ax.transAxes, horizontalalignment='center')
