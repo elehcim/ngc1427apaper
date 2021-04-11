@@ -71,6 +71,16 @@ f.add_colorbar()
 f.colorbar.set_location('top')
 f.ax.tick_params(direction='in')
 f.colorbar._colorbar.ax.tick_params(direction='in')
-savefig(fig, f'r_band_{MAG_LIMIT}', ext=".png", dpi=200)
+
+# line_x = 55.04, 55.24
+# line_y = -35.62, -35.62
+# x_start, x_end = 0.07, 0.5
+# y = 0.08
+# text_pos = (x_start + x_end) / 2
+# f.ax.plot((0.1,0.5), (y, y), transform=f.ax.transAxes, c='r')
+# f.ax.text(text_pos, y-0.05, '100 kpc', horizontalalignment='center',
+#     transform=f.ax.transAxes, c='r')
+
+savefig(fig, f'r_band_{MAG_LIMIT}', ext=".png", dpi=200, tight=True)
 
 # plt.show()
