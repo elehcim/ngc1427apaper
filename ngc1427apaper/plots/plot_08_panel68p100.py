@@ -109,9 +109,9 @@ _labels = {'sb':r"$\mu_{r'}$",
 
 
 sim_label = '68p100'
-which_snap = 49
+which_snap = 39
 
-n_snaps = 7
+n_snaps = 5
 spacing = 5
 limit = spacing*(n_snaps-1)//2
 snaps = tuple(np.linspace(-limit, limit, num=n_snaps, dtype=int) + which_snap+limit)
@@ -123,7 +123,7 @@ maps = list()
 
 dff = get_data('cache_with_multi_iso_and_hi_valid.pkl')
 
-df = dff.query(f'sim == "{sim_label}" & snap == {which_snap} & rp == 77 & vp == -793 & sol == 2 & sign == 1')
+df = dff.query(f'sim == "{sim_label}" & snap == 49 & rp == 77 & vp == -793 & sol == 2 & sign == 1')
 print(df)
 assert len(df) == 1
 
@@ -148,9 +148,9 @@ extent = (-width/2, width/2, -width/2, width/2)
 
 cmap_name = 'nipy_spectral'
 
-load_pickle = True
+load_pickle = False
 
-pickle_name = 'dd68p100.pkl'
+pickle_name = 'dd68p100a.pkl'
 if load_pickle:
     d = pickle.load(open(get_data_name(pickle_name), 'rb'))
     print(f'loaded {pickle_name}...')
@@ -202,7 +202,7 @@ for i, ax in enumerate(grids['sb']):
             c='k', size='small', weight='normal', transform=ax.transAxes, horizontalalignment='center')
 
 for g in grids.values():
-    ax = g[0]
+    ax = g[n_snap//2]
     fac = 4200/7420  # from Lee Waddell email)
     major_axis = 7
     ellipse = Ellipse((0,0), major_axis, major_axis*fac, -15, facecolor='none', edgecolor='k')
@@ -250,7 +250,7 @@ for i, g in enumerate(grids.values()):
 # grid.axes_all.set_xlabel('x/kpc')
 # grid.axes_all.set_ylabel('y/kpc')
 
-file_stem = 'panel68p100'
-savefig(fig, file_stem, '.png', dpi=300)
+file_stem = 'panel68p100a'
+savefig(fig, file_stem, '.png', dpi=200)
 # savefig(fig, file_stem, '.pdf')
 # plt.show()
