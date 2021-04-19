@@ -5,7 +5,7 @@ import glob
 scripts = glob.glob('ngc1427apaper/plots/plot_*')
 
 setup(name='ngc1427apaper',
-      version='0.1.1',
+      version='1.0',
       description='Package for NGC1427A Mastropietro et al 2020 paper',
       license="MIT",
       author='Michele Mastropietro',
